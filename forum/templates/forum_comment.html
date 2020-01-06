@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Forum page</title>
+{% load crispy_forms_tags %}
+{% endblock %}
+{% block carousel %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content_info %}
+    <div>
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <section class="info-section">
+            <div class="container">
+                <div class="row">
+                    <div class="head-box text-center mb-5 col col-md-8">
+                        <h2>Thread on "{{ thread.subject }}"</h2>
+                        <h6 class="text-underline-primary">Created by {{ thread.creator }} </h6>
+                    </div>
+                    <div class="col col-md-4">
+                        <h3 class="btn btn-success">Add a comment</h3>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" value="Create" class="btn btn-success">
+                      </form>
+                    </div>
+                </div>
+
+                <div class="three-panel-block mt-5">
+                    {% for comment in comments %}
+                    <div class="row">
+                        <div  class="col col-md-7" style="display:flex; flex-direction:column; border-bottom:1px solid crimson">
+                            <img src="{{ comment.user.profile.profile_pic.url }}"class="rounded-circle" width="60" height="60">
+                            <h3><span style="color:crimson;">{{ comment.user }}</span> : {{ comment.comment }}</h3>
+                            <small>Date: {{ comment.pub_date }}</small>
+                            {% if comment.user_id == user.id or user.is_superuser %}
+                               <a href="{% url 'delete_com' comment.id %}" style="float:right"><button class="btn btn-success"><span class="fa fa-trash" ></span></button></a>
+                            {% endif %}
+                            <hr>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+{% endblock %}
+
+{% block content2 %}
+{% endblock %}

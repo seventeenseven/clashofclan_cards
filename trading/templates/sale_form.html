@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Sale Form</title>
+{% endblock %}
+{% block carousel %}<br><br>
+{% endblock %}
+
+{% block content_info %}
+    <div class="container">
+       <div class="row">
+          <div class="col col-md-5">
+              <h3>Enter the price of your cards</h3>
+              <form method="POST" action="{% url 'sale' card.id %}">
+                  {% csrf_token %}
+                  <input type="text" name="price">
+                  <input type="submit" value="Put on sale" class="btn btn-warning">
+              </form>
+          </div>
+
+       </div>
+    </div>
+{% endblock %}
+
+{% block content2 %}{% endblock %}

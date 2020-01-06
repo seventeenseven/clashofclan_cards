@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Leader Board</title>
+{% endblock %}
+{% block carousel %}
+    <h2>LEADER BOARD</h2><br>
+{% endblock %}
+
+{% block content_info %}
+    <div>
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <section class="info-section">
+        <div class="container">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3>The actual winner is: <span style="background-color:red;">{{ winner.user|upper }}</span> <br>With {{ winner.points }} points</h3><br>
+                    </div>
+                </div>
+                {% for profile in profiles %}
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>{{ forloop.counter }}</h5>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                       <img src="{{ profile.profile_pic.url }}" style="width:100%;max-height:200px;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>{{ profile.user.first_name }} {{ profile.user.last_name }}</h4>
+                                        <h6> aka {{ profile.user }}</h6>
+                                        <p class="btn btn-warning"> {{ profile.points }} Points</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="{% url 'profile' profile.user.id %}" class="btn btn-outline" style="background:#d8622b;color:#fff!important;">Check the profile</a>
+                                        <small style="text-decoration:underline;"> {{ profile.coins }} Coins</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content2 %}
+{% endblock %}

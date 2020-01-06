@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Logout</title>
+    {% endblock %}
+
+{% block carousel %}
+    <div>
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <section class="intro carousel slide bg-overlay-light h-auto" id="carouselExampleCaptions">
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <img class="d-block img-fluid" alt="First slide" style="width:100%; heigth:300px;" src="https://cdn.dribbble.com/users/30152/screenshots/3937427/logged_out.png">
+                <div class="carousel-caption ">
+                    <h4 class="text-white mb-2 mt-4"></h4>
+                    <p class="text-white mb-3 px-5 lead">Start building your empire after Login </p>
+                    <a href="#" class="btn btn-primary btn-capsul px-4 py-2">Log in there <i class="fa fa-arrow-up"></i></a>
+                </div>
+              </div>
+            </div>
+        </section>
+
+{% endblock %}
+{% block content_info %}OOPS YOU ARE LOGGED OUT{% endblock %}
+{% block content2 %}{% endblock %}

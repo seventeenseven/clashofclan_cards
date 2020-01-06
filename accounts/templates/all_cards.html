@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% load crispy_forms_tags %}
+    <title>All the users</title>
+{% endblock %}
+{% block carousel %}
+    <br><br>
+{% endblock %}
+
+{% block content_info %}
+    <div>
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <section class="info-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Total number of cards: {{ total }} </h3>
+                    {% for card in cards %}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                           <img src="{{ card.card_images.url }}" style="width:100%;max-height:200px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small> Card number {{card.id}}</small>
+                                            <h4> The {{card.name }}</h4>
+                                            <h6>Village: {{ card.village }}</h6>
+                                            <h6>Xp: {{ card.xp }}</h6>
+                                            <h6>Type of the card: {{ card.type }}</h6>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="{% url 'delete_card' card.id %}" class="btn btn-danger" >Delete this card</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4" >
+                    <h3>Add a card there </h3>
+                    <form method="post" enctype="multipart/form-data" style="border:1px solid black">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" value="ADD" class="btn btn-info">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content2 %}
+{% endblock %}

@@ -1,0 +1,117 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile creation Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body{
+             background-image : url(https://u01.appmifile.com/images/2019/12/06/a8a2a410-f38b-4111-ab86-267b5003a953.png);
+             background-repeat:no-repeat;
+             background-size:cover;
+             width:100%;
+             height:100vh;
+             overflow:auto;
+
+        }
+
+        /*-----for border----*/
+        .container{
+            font-family:Roboto,sans-serif;
+             background-image:url(https://image.freepik.com/free-vector/dark-blue-blurred-background_1034-589.jpg) ;
+
+             border-style: 1px solid grey;
+             margin: 0 auto;
+             text-align: center;
+             opacity: 0.8;
+             box-shadow: 2px 5px 5px 0px #eee;
+             max-width: 500px;
+             padding-top: 10px;
+             height: 640px;
+             margin-top: 5px;
+             float:left;
+        }
+
+        /*---for heading-----*/
+        .heading{
+             text-decoration:bold;
+             text-align : center;
+             font-size:30px;
+             color:#F96;
+             padding-top:10px;
+        }
+        .mail{
+             margin-left: 44px;
+             font-family: sans-serif;
+             color: white;
+             font-size: 14px;
+             margin-top: 13px;
+        }
+        /*------------For submit button---------*/
+        .sbutton{
+             color: white;
+             font-size: 20px;
+             border: 1px solid white;
+             background-color: #080808;
+             width: 32%;
+             margin-left: 41%;
+             margin-top: 16px;
+             box-shadow: 0px 2px 2px 0px white;
+
+        }
+        .btn.btn-warning:hover {
+            box-shadow: 2px 1px 2px 3px #99ccff;
+            background:#5900a6;
+            color:#fff;
+            transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if messages %}
+				<ul>
+					{% for msg in messages %}
+						<li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+        <form role="form" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!---heading---->
+             <header class="heading"> Profile Creation</header><hr></hr>
+            <!---Form starting---->
+             <div class="col-sm-12">
+                  <div class="row">
+                      <div class="col-xs-4">
+                          <label class="mail">Choose your type/character :</label>
+                      </div>
+                      <div class="col-xs-8 mail">
+                          {{ form.personnage }}
+                      </div>
+                  </div><br>
+              </div>
+             <div class="col-sm-12">
+                 <div class ="row">
+                     <div class="col-xs-4 ">
+                       <label class="mail">Upload your Profile Picture:</label>
+                     </div>
+
+                     <div class="col-xs-8 mail">
+                         {{ form.profile_pic }}
+                     </div>
+
+                 </div>
+                 <div class="col-sm-12">
+                     <input class="btn btn-warning" style="margin-bottom:5px;" type="submit" value="Create your Profile">
+               </div>
+        </form>
+    </div>
+
+</body>
+</html>
+

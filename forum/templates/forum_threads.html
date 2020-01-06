@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Forum page</title>
+{% load crispy_forms_tags %}
+{% endblock %}
+{% block carousel %}
+    {{ block.super }}
+    <h2>Forum Page</h2>
+{% endblock %}
+
+{% block content_info %}
+    <div>
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li {% if msg.tags %} class="alert alert-{{ msg.tags }}"{% endif %}>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    <section class="info-section">
+            <div class="container">
+                <div class="row">
+                    <div class="head-box text-center mb-5 col col-md-8">
+                        <h2>All the threads</h2>
+                        <h6 class="text-underline-primary">This is the thread List</h6>
+                    </div>
+                    <div class="col col-md-4">
+                        <h3 class="btn btn-success">Create a Thread there</h3>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" value="Create" class="btn btn-success">
+                      </form>
+                    </div>
+                </div>
+
+                <div class="three-panel-block mt-5">
+                    <div class="row">
+                        {% for thread in threads %}
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="service-block-overlay text-center p-lg-3">
+                                <i class="fa fa-comments box-circle-solid mt-3 mb-3" aria-hidden="true"></i>
+                                <h3>{{ thread.subject }}</h3>
+                                <p class="px-4">Created by: {{ thread.creator }}</p>
+                                <a href="{% url 'thread' thread.id %}"><button class="btn btn-success">Check this thread</button></a>
+                                {% if thread.creator_id == user.id or user.is_superuser %}
+                                    <a href="{% url 'delete_thread' thread.id %}" style="float:right"><button class="btn btn-warning"><span class="fa fa-trash" ></span></button></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+{% endblock %}
+
+{% block content2 %}
+{% endblock %}
