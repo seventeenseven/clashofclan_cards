@@ -26,9 +26,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '&rg!29g3w1&_r$wm^_!5&#55zzklez
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-ALLOWED_HOSTS = []
+DEBUG = True
+#DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+ALLOWED_HOSTS = ['git.heroku.com/cardsclashofclan.git']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'forum',
     'trading',
     'crispy_forms',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -137,3 +138,14 @@ LOGIN_REDIRECT_URL = 'leader'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
+
+AWS_STORAGE_BUCKET_NAME= "clashofclan-card"
+
+AWS_SECRET_ACCESS_KEY="O7rZ/w3iKKLyvzNthCgiNB8G5+0JIeEg9zrktAgy"
+
+AWS_ACCESS_KEY_ID="AKIAWK5ABWGNGU4Z3VNI"
+
+AWS_S3_FILE_OVERWRITE=False
+AWS_DEFAULT_ACL=None
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
